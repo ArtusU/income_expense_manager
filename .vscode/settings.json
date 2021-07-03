@@ -1,3 +1,7 @@
 {
-    "python.pythonPath": "C:\\Users\\Artus\\.virtualenvs\\income_expense_manager-SSrsoouN\\Scripts\\python.exe"
+    "python.pythonPath": "C:\\Users\\Artus\\.virtualenvs\\income_expense_manager-SSrsoouN\\Scripts\\python.exe",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }
