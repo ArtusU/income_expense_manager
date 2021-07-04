@@ -9,6 +9,7 @@ verify_ssl = true
 django = "*"
 python-decouple = "*"
 django-environ = "*"
+validate-email = "*"
 
 [requires]
 python_version = "3.8"
