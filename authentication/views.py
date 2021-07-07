@@ -3,6 +3,7 @@ import json
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
+from django.contrib import auth
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.validators import validate_email
 from django.http import JsonResponse
@@ -117,3 +118,27 @@ class VerificationView(View):
             pass
 
         return redirect('login')
+
+
+class LoginView(View):
+    def get(self, request):
+        return render(request, 'authentication/login.html')
+
+    def post(self, request):
+        username = request.POST['username']
+        password = request.POST['password']
+
+        if username and password:
+            user = auth.authenticate(username=username, password=password)
+
+            if user:
+                if user.is_active:
+                    auth.login(request, user)
+                    messages.success(request, 'Welcome, ' + user.username+' you are now logged in')
+                    return redirect('expenses')
+                messages.error(
+                    request, 'Account is not active,please check your email')
+                return render(request, 'authentication/login.html')
+            messages.error(
+                request, 'Invalid credentials,try again')
+            return render(request, 'authentication/login.html')
