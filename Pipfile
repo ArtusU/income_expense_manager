@@ -10,6 +10,7 @@ django = "*"
 python-decouple = "*"
 django-environ = "*"
 validate-email = "*"
+six = "*"
 
 [requires]
 python_version = "3.8"

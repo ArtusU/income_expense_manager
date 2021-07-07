@@ -63,6 +63,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'iemanager.wsgi.application'
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
