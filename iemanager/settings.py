@@ -1,26 +1,21 @@
+from django.contrib import messages
+
 from pathlib import Path
 import os
-# from decouple import config
+from decouple import config
 import environ
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 env = environ.Env(
-    # set casting, default value
     DEBUG=(bool, False)
 )
-# reading .env file
 environ.Env.read_env()
-
-# False if not in os.environ
 DEBUG = env('DEBUG')
-
-# Raises django's ImproperlyConfigured exception if SECRET_KEY not in os.environ
 SECRET_KEY = env('SECRET_KEY')
 
-# DEBUG = config('DEBUG', default=False, cast=bool)
-# TEMPLATE_DEBUG = DEBUG
+DEBUG = config('DEBUG', default=False, cast=bool)
+TEMPLATE_DEBUG = DEBUG
 
 ALLOWED_HOSTS = []
 
@@ -127,3 +122,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger'
+}
