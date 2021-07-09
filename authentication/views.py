@@ -76,7 +76,7 @@ class RegistrationView(View):
                     'token': account_activation_token.make_token(user)
                 }
 
-                link = reverse('activate', kwargs={
+                link = reverse('authentication:activate', kwargs={
                                                     'uidb64': email_body['uid'],
                                                     'token': email_body['token']
                 })
