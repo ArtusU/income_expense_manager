@@ -82,3 +82,10 @@ def expense_edit(request, id):
         messages.success(request, 'Expense updated  successfully')
 
         return redirect('expenses')
+
+
+def delete_expense(request, id):
+    expense = Expense.objects.get(pk=id)
+    expense.delete()
+    messages.success(request, 'Expense removed')
+    return redirect('expenses')
