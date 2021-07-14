@@ -48,7 +48,7 @@ def add_expense(request):
         description = request.POST.get('description')
         date = request.POST.get('expense_date')
         category = request.POST.get('category')
-        if not amount or not description or not date:
+        if not amount or not description or not date or not category:
             messages.error(request, 'This field is required.')
             return render(request, 'expenses/add_expense.html', context)
 
