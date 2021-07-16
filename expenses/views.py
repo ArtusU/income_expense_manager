@@ -7,6 +7,7 @@ from django.http import JsonResponse
 from django.shortcuts import redirect, render
 
 from .models import Category, Expense
+from userpreferences.models import UserPreference
 
 
 def search_expenses(request):
@@ -15,8 +16,8 @@ def search_expenses(request):
         expenses = Expense.objects.filter(
             amount__istartswith=search_str, owner=request.user) | Expense.objects.filter(
             date__istartswith=search_str, owner=request.user) | Expense.objects.filter(
-            description__istartswith=search_str, owner=request.user) | Expense.objects.filter(
-            category__istartswith=search_str, owner=request.user)
+            description__icontains=search_str, owner=request.user) | Expense.objects.filter(
+            category__icontains=search_str, owner=request.user)
         data = expenses.values()
         return JsonResponse(list(data), safe=False)
         
@@ -28,10 +29,12 @@ def index(request):
     paginator = Paginator(expenses, 2)
     page_number = request.GET.get('page')
     page_obj = Paginator.get_page(paginator, page_number)
+    currency = UserPreference.objects.get(user=request.user).currency
 
     context = {
         'expenses': expenses,
         'page_obj': page_obj,
+        'currency': currency
     }
     return render(request, 'expenses/index.html', context)
 
