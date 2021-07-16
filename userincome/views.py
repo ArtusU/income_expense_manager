@@ -89,3 +89,10 @@ def income_edit(request, id):
         messages.success(request, 'Record updated  successfully')
 
         return redirect('income')
+
+
+def delete_income(request, id):
+    income = UserIncome.objects.get(pk=id)
+    income.delete()
+    messages.success(request, 'record removed')
+    return redirect('income')
