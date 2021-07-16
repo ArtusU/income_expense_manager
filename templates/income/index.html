@@ -20,7 +20,8 @@
     </div>
 
     <div class="col-md-2">
-      <a href="{% url 'add-income'%}" class="btn btn-primary">Add Income</a>
+      {% comment %} <a href="{% url 'add-income'%}" class="btn btn-primary">Add Income</a> {% endcomment %}
+      <a href="#" class="btn btn-primary">Add Income</a>
     </div>
   </div>
 
@@ -38,7 +39,7 @@
         </div>
       </div>
      </div>
-<div class="app-table">
+    <div class="app-table">
 
   <table class="table table-stripped table-hover">
     <thead>
@@ -61,7 +62,8 @@
 
         <td>
           <a
-            href="{% url 'income-edit' income.id  %}"
+            {% comment %} href="{% url 'income-edit' income.id  %}" {% endcomment %}
+            href="#"
             class="btn btn-secondary btn-sm"
             >Edit</a
           >
