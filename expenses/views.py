@@ -1,3 +1,4 @@
+import datetime
 import json
 
 from django.contrib import messages
@@ -104,3 +105,34 @@ def delete_expense(request, id):
     expense.delete()
     messages.success(request, 'Expense removed')
     return redirect('expenses')
+
+
+def expense_category_summary(request):
+    today_date = datetime.time.today()
+    six_months_ago = today_date-datetime.timedelta(30*6)
+    expenses = Expense.objects.filter(owner=request.user, date__gte=six_months_ago, date__lte=today_date)
+
+    finalrep = {}
+
+    def get_category(expense):
+        return expense.category
+
+    category_list = list(set(map(get_category, expenses)))
+
+    def get_expense_category_amount(category):
+        amount=0
+        filtered_by_category = expenses.filter(category=category)
+
+        for expense in filtered_by_category:
+            amount += expense.amount
+            return amount
+
+    for expense in expenses:
+        for category in category_list:
+            finalrep[category] = get_expense_category_amount(expense)
+
+    return JsonResponse({'expense_category_data': finalrep}, safe=False)
+
+
+def stats_view(request):
+    return render(request, 'expenses/stats.html')
