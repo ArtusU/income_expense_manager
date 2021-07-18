@@ -12,5 +12,5 @@ urlpatterns = [
     path('expense-delete/<int:id>', delete_expense, name="expense-delete"),
     path('stats-view', stats_view, name="stats_view"),
     path('search-expenses', csrf_exempt(search_expenses), name="search_expenses"),
-    path('expense-category-sumary', csrf_exempt(expense_category_summary), name="expense_category_summary"),
+    path('expense-category-summary', csrf_exempt(expense_category_summary), name="expense_category_summary"),
 ]

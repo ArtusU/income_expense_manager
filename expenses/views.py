@@ -27,7 +27,7 @@ def search_expenses(request):
 def index(request):
     categories = Category.objects.all()
     expenses = Expense.objects.filter(owner=request.user)
-    paginator = Paginator(expenses, 2)
+    paginator = Paginator(expenses, 8)
     page_number = request.GET.get('page')
     page_obj = Paginator.get_page(paginator, page_number)
     currency = UserPreference.objects.get(user=request.user).currency
@@ -67,7 +67,7 @@ def add_expense(request):
         return redirect('expenses')
 
     
-    return render(request, 'expenses/add_expense.html')
+    return render(request, 'expenses/add_expense.html', context)
 
 
 def expense_edit(request, id):
@@ -108,10 +108,10 @@ def delete_expense(request, id):
 
 
 def expense_category_summary(request):
-    today_date = datetime.time.today()
-    six_months_ago = today_date-datetime.timedelta(30*6)
-    expenses = Expense.objects.filter(owner=request.user, date__gte=six_months_ago, date__lte=today_date)
-
+    todays_date = datetime.date.today()
+    six_months_ago = todays_date-datetime.timedelta(30*6)
+    expenses = Expense.objects.filter(owner=request.user, date__gte=six_months_ago, date__lte=todays_date)
+ 
     finalrep = {}
 
     def get_category(expense):
@@ -129,7 +129,7 @@ def expense_category_summary(request):
 
     for expense in expenses:
         for category in category_list:
-            finalrep[category] = get_expense_category_amount(expense)
+            finalrep[category] = get_expense_category_amount(category)
 
     return JsonResponse({'expense_category_data': finalrep}, safe=False)
 
