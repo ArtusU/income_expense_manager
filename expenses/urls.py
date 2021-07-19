@@ -1,6 +1,6 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import path
-from .views import index, add_expense, expense_edit, delete_expense, search_expenses, expense_category_summary, stats_view
+from .views import index, add_expense, expense_edit, delete_expense, search_expenses, expense_category_summary, stats_view, export_csv 
 
 
 
@@ -13,4 +13,5 @@ urlpatterns = [
     path('stats-view', stats_view, name="stats_view"),
     path('search-expenses', csrf_exempt(search_expenses), name="search_expenses"),
     path('expense-category-summary', csrf_exempt(expense_category_summary), name="expense_category_summary"),
+    path('export-csv', export_csv, name="export_csv"),
 ]
